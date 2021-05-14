@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,7 +23,6 @@
                     <li class="nav-item">
                         <a class="nav-link active" aria-current="page" href="#">Home</a>
                     </li>
-
                 </ul>
                 <form class="d-flex">
                     <input class="form-control me-2" type="search" id='search' placeholder="Search" aria-label="Search">
@@ -66,7 +64,6 @@
         integrity="sha384-lpyLfhYuitXl2zRZ5Bn2fqnhNAKOAaM/0Kr9laMspuaMiZfGmfwRNFh8HlMy49eQ"
         crossorigin="anonymous"></script>
     <script>
-        console.log("Welcome to this Magic note app")
 show()
 let a = document.getElementById('addbtn')
 let at=document.getElementById('title')
@@ -118,7 +115,6 @@ function show() {
 
 }
 function deleteNode(index) {
-    console.log(`I am deleting a note `);
     let n = localStorage.getItem('notes')
     if (n == null) {
         noj = [];
@@ -134,21 +130,17 @@ let s = document.getElementById('search')
 s.addEventListener("input",function(){
     let n=document.getElementsByClassName('mynotes')
     Array.from(n).forEach(function (element) {
-        console.log(element, 'element')
         let c=element.getElementsByTagName('p')[0].innerText
         let h=element.getElementsByTagName('h5')[0].innerText
         if(c.includes(s.value) || h.includes(s.value)){
-            console.log("block")
             element.style.display='block'
         }
         else{
-            console.log('none')
             element.style.display='none'
         }
     })
 });
-
-    </script>
+ </script>
         <script src="/nod.js"></script>
 </body>
 
