@@ -61,87 +61,82 @@
         crossorigin="anonymous"></script>
     <script>
         console.log("Welcome to this Magic note app")
-        show()
-        let a = document.getElementById('addbtn')
-        a.addEventListener('click', function (e) {
-            let t = document.getElementById('addTxt')
-            let n = localStorage.getItem('notes')
-            if (n == null) {
-                noj = [];
-            }
-            else {
-                noj = JSON.parse(n)
-            }
-            console.log(noj)
-            noj = Array.from(noj)
-            noj.push(t.value);
-            localStorage.setItem('notes', JSON.stringify(noj))
-            console.log(noj)
-            t.value = '';
-            show();
-        })
-        function show() {
-            let n = localStorage.getItem('notes')
-            if (n == null) {
-                noj = [];
-            }
-            else {
-                noj = JSON.parse(n)
-            }
-            let html = '';
-            noj.forEach(function (element, index) {
-                html += `
+show()
+let a = document.getElementById('addbtn')
+let at=document.getElementById('title')
+a.addEventListener('click', function (e) {
+    let t = document.getElementById('addTxt')
+    let n = localStorage.getItem('notes')
+    if (n == null) {
+        noj = [];
+    }
+    else {
+        noj = JSON.parse(n)
+    }
+    let myobj={
+        title:at.value,
+        text:t.value
+    }
+    noj.push(myobj)
+    localStorage.setItem('notes', JSON.stringify(noj))
+    t.value = '';
+    at.value='';
+    show();
+})
+function show() {
+    let n = localStorage.getItem('notes')
+    if (n == null) {
+        noj = [];
+    }
+    else {
+        noj = JSON.parse(n)
+    }
+    let html = '';
+    noj.forEach(function (element, index) {
+        html += `
         <div class="mynotes my-2 mx-2" style="width: 18rem;">
                 <div class="card-body">
-                  <h5 class="card-title">Note ${index + 1}</h5>
-                  <p class="card-text">${element}</p>
+                  <h5 class="card-title">${element.title}</h5>
+                  <p class="card-text">${element.text}</p>
                   <button class="btn btn-primary" id='${index}' onclick='deleteNode(this.is)'>Delete Note</button>
                 </div>
               </div>
         `});
-            let n2 = document.getElementById('notes')
-            if (noj.length != 0) {
-                n2.innerHTML = html
-            }
-            else {
-                n2.innerText = `Nothing to show! Use "Add a Note" above section to add note`
-            }
+    let n2 = document.getElementById('notes')
+    if (noj.length != 0) {
+        n2.innerHTML = html
+    }
+    else {
+        n2.innerText = `Nothing to show! Use "Add a Note" above section to add note`
+    }
 
+}
+function deleteNode(index) {
+    let n = localStorage.getItem('notes')
+    if (n == null) {
+        noj = [];
+    }
+    else {
+        noj = JSON.parse(n)
+    }
+    noj.splice(index, 1)
+    localStorage.setItem('notes', JSON.stringify(noj))
+    show();
+}
+let s = document.getElementById('search')
+s.addEventListener("input",function(){
+    let n=document.getElementsByClassName('mynotes')
+    Array.from(n).forEach(function (element) {
+        let c=element.getElementsByTagName('p')[0].innerText
+        let h=element.getElementsByTagName('h5')[0].innerText
+        if(c.includes(s.value) || h.includes(s.value)){
+            element.style.display='block'
         }
-        function deleteNode(index) {
-            console.log(`I am deleting a note `);
-            let n = localStorage.getItem('notes')
-            if (n == null) {
-                noj = [];
-            }
-            else {
-                noj = JSON.parse(n)
-            }
-            noj.splice(index, 1)
-            localStorage.setItem('notes', JSON.stringify(noj))
-            show();
+        else{
+            element.style.display='none'
         }
-        let s = document.getElementById('search')
-        s.addEventListener("input", function () {
-            console.log("'search button clicked")
-            let d = s.value.toLowerCase();
-            console.log(d, '  is d  value')
-            let n = document.getElementsByClassName('mynotes')
-            console.log(Array.from(n), 'is array')
-            Array.from(n).forEach(function (element) {
-                console.log(element, 'element')
-                let c = element.getElementsByTagName('p')[0].innerText
-                console.log('c      ** ', c)
-                if (c.includes(s.value)) {
-                    console.log("block")
-                    element.style.display = 'block'
-                }
-                else {
-                    console.log('none')
-                    element.style.display = 'none'
-                }
-            })
-        });
+    })
+});
 
     </script>
     <script src="/nod.js"></script>
